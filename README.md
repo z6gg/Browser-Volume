@@ -66,3 +66,7 @@ Volume commands travel peer to peer over WebRTC. The topic id in the URL is the 
 ## License
 
 GPLv3, see LICENSE. PeerJS (MIT) and the QR generator in `extension/` keep their own headers.
+
+---
+
+*Vibe coded with Claude Sonnet 5.5.*
