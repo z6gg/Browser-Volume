@@ -2,6 +2,7 @@
   "manifest_version": 3,
   "name": "Browser Volume",
   "version": "0.3.0",
+  "description": "Boost quiet tabs up to 1000% with a clean limiter, then control the volume from your phone over a private link.",
   "permissions": ["tabCapture", "offscreen", "activeTab", "storage"],
   "background": { "service_worker": "background.js" },
   "action": {
