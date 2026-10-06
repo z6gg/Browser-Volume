@@ -23,7 +23,7 @@ Browser-Volume/
 │   ├── offscreen.html / offscreen.js
 │   ├── peerjs.min.js / qrcode.js
 │   └── icons/
-├── site/            # self-contained remote page (single index.html, works offline)
+├── site/            # self-contained remote page
 │   └── index.html
 ├── LICENSE          # GPLv3
 └── README.md
