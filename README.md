@@ -1,16 +1,16 @@
 # Browser Volume
 
-Some tabs are just too quiet. This fixes that. It boosts any tab up to 1000% and lets you control it from your phone.
+Boosts any tab up to 1000% and lets you control it from your phone.
 
-It's a Chrome MV3 extension. It grabs the tab's audio, pushes it through a limiter so it doesn't fall apart at high gain, and gives you a private remote page (link + QR) so your phone works as a volume remote.
+Chrome MV3 extension. Captures tab audio, runs it through a limiter, and provides a private remote page (link + QR) so a phone can control the volume.
 
-## What It Does
+## Features
 
 - Per-tab boost from 0% to 1000%, in 10% steps
-- ON/OFF bypass toggle, one click reset back to 100%
+- ON/OFF bypass toggle, reset to 100%
 - Shortcuts: `Alt+1` down, `Alt+2` up
-- Phone remote: open the link or scan the QR in the popup, then slide / mute / test from your phone
-- Test button plays a chime through the boosted tab so you can hear the level from the other room
+- Phone remote: open the link or scan the QR in the popup to adjust volume, mute, or test
+- Test button plays a chime through the tab
 
 ## Repo Layout
 
@@ -29,39 +29,39 @@ Browser-Volume/
 └── README.md
 ```
 
-Extension and site live together but deploy separately. Install from `extension/`, host only `site/`. For Cloudflare Pages point the project at `site/` (or copy `site/index.html` to any static host). You can change the base URL in the popup if you self-host.
+Extension and site are in one repo but deploy separately. Install from `extension/`, host only `site/`. For Cloudflare Pages set the project root to `site/` (or copy `site/index.html` to any static host). The base URL can be changed in the popup when self-hosting.
 
 ## Install the Extension
 
-1. Go to `chrome://extensions`, flip on Developer Mode.
-2. Load unpacked > pick the `extension/` folder.
-3. Open a normal site tab with sound, click the icon, allow capture when it asks.
-4. Drag the slider. If it says it can't boost the tab, jump to a regular `https` page and click the icon again.
+1. Open `chrome://extensions`, enable Developer Mode.
+2. Load unpacked > select the `extension/` folder.
+3. Open a standard website tab with audio, click the icon, allow capture when prompted.
+4. Drag the slider. If the tab cannot be boosted, open a regular `https` page and click the icon again.
 
 ## Use the Phone Remote
 
 1. Click the extension icon, copy the link or scan the QR.
-2. Open it on your phone. You'll see connecting, then connected.
-3. Slide for volume, toggle ON/OFF, hit Test to chime the tab.
+2. Open it on a phone. Status changes from connecting to connected.
+3. Adjust the slider, toggle ON/OFF, or press Test to play a chime.
 
-Every install makes its own private topic id (`booster-...`). Anyone with the full link can drive that browser's volume, so don't share it around.
+Each install generates a private topic id (`booster-...`). Anyone with the full link can control that browser's volume.
 
 ## Self-Host the Remote Page
 
-It's a single file, no build step. Two options:
+Single file, no build step:
 
-- Cloudflare Pages: new project from this repo with the root set to `site/`, or
-- Any static host: just upload `site/index.html` as-is.
+- Cloudflare Pages: create a project from this repo with the root set to `site/`, or
+- Any static host: upload `site/index.html` as-is.
 
-Then set that domain in the popup's base URL field so the QR points at your host. Default is `https://browservolume.pages.dev/`.
+Set that domain in the popup base URL field so the QR uses the correct host. Default is `https://browservolume.pages.dev/`.
 
 ## How It Works
 
-`tabCapture` feeds into a gain node plus a compressor in an offscreen doc, then back out boosted. The browser hosts a PeerJS id matching your topic, the remote page joins it on a reliable data channel and swaps `{pct, on, test}` messages. No accounts, no backend on my end. Signaling goes through the public PeerJS cloud.
+`tabCapture` routes into a gain node and compressor in an offscreen document, then outputs the boosted audio. The browser hosts a PeerJS id matching the topic, the remote page connects over a reliable data channel and exchanges `{pct, on, test}` messages. No accounts or custom backend. Signaling uses the public PeerJS cloud.
 
 ## Privacy
 
-Volume commands go peer to peer over WebRTC. The topic id in the URL is the only secret. No analytics, no audio uploaded anywhere.
+Volume commands go peer to peer over WebRTC. The topic id in the URL is the only credential. No analytics, no audio uploaded anywhere.
 
 ## License
 
