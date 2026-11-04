@@ -69,4 +69,4 @@ GPLv3, see LICENSE. PeerJS (MIT) and the QR generator in `extension/` keep their
 
 ---
 
-*Vibe coded with Claude Sonnet 5.5.*
+*Human directed, made with Claude Sonnet 5.5.*
